@@ -1,0 +1,41 @@
+ 
+Devesh Anil Khankhoje  
+Ema il: deveshkhankhoje10@gmail.com | Phone:  (+91) 8329616635  
+ 
+Education  
+Bharati Vidyapeeth College of Engineering  
+Bachelors in Engineering, Information Technology  | CGPA:  8.1 (2021 –2025)  
+ 
+Technical Skills  
+• Languages:  C, C++ , HTML, CSS,  JavaScript, TypeScript, Dart  
+• Libraries & Frameworks:  Node.js, React.js, Express.js, Flutter  
+• Databases:  SQL, Mongo Db 
+• Version Control:  Git, GitHub  
+ 
+Projects  
+Pro Planet Person App  (Mobile App ) 
+• Developed a mobile app using Flutter  to promote eco -friendly habits.  
+• Integrated a task -based reward mechanism to encourage sustainable actions.  
+• Added community  features for enhanced  engagement.  
+• Ensured user -friendly design and smooth navigation.  
+LayerZero : Bg Remover  
+• Built  a background remover using MERN tec hnolo gy. 
+• Learnt and a dded  auth with Clerk and JWT  to handle user data . 
+• Handled image upload, preview, and download  with Node  js. 
+• Designed fast, responsive UI with privacy focus  on func tionality.  
+BarcaStore : A Market Place   
+• Created a responsive full -stack platform using MERN stack.  
+• Enabled authentication and encryption using JWT and bcrypt.  
+• Product is market place to sell and buy football merchandize and accessories.  
+• Delivers a seamless experience to buy sell and interact with fellow ballers . 
+Chess Cohort : College Fest  
+• Built a real -time chess game using Node.js and Express.  
+• Integrated Socket.IO for live  2 player  multiplayer gameplay.  
+• Used Chess.js to enforce official game rules  and logic . 
+• Learned real -time communication  basics  and event handling.  
+ 
+Achievements and Hobbies  
+• First Runner -up: Smart India Hackathon 2023  
+• Football Enthusi ast and Ex National player . 
+• Sponsorship Head , Social Media Head:  ITSA ( Club). 
+• Reading Sanatan Scriptures.  

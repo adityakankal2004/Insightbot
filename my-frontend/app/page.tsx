@@ -1,22 +1,31 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
+import { uploadPDF, askQuestion } from './api';
 import Header from './components/Header';
 import ChatDisplay from './components/ChatDisplay';
 import ChatInput from './components/ChatInput';
 import LandingPage from './components/LandingPage';
 
+interface Message {
+  id: number;
+  role: string;
+  content: string;
+  timestamp: Date;
+}
+
 export default function ChatInterface() {
   const [isStarted, setIsStarted] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState(null);
-  const messagesEndRef = useRef(null);
-  const fileInputRef = useRef(null);
-  const textareaRef = useRef(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {
@@ -33,70 +42,103 @@ export default function ChatInterface() {
   const handleStart = () => {
     console.log('handleStart triggered');
     setIsStarted(true);
-    setMessages([{
-      id: 1,
-      role: 'assistant',
-      content: "Hello! I'm your AI assistant. Upload a PDF to ask questions, and I'll simulate RAG-based answers. How can I help?",
-      timestamp: new Date()
-    }]);
+    setMessages([
+      {
+        id: 1,
+        role: 'assistant',
+        content: "Hello! I'm your AI assistant. Upload a PDF to ask questions, and I'll fetch answers from it. Let's go!",
+        timestamp: new Date(),
+      },
+    ]);
   };
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file && file.type === 'application/pdf') {
-      console.log('File uploaded:', file.name);
       setUploadedFile(file);
-      setMessages(prev => [...prev, { id: Date.now(), role: 'system', content: `📄 Successfully uploaded: ${file.name}.`, timestamp: new Date() }]);
+      try {
+        await uploadPDF(file);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: Date.now(),
+            role: 'system',
+            content: `📄 Successfully uploaded: ${file.name}`,
+            timestamp: new Date(),
+          },
+        ]);
+      } catch (err) {
+        console.error("PDF upload failed:", err);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: Date.now(),
+            role: 'system',
+            content: `❌ Failed to upload PDF.`,
+            timestamp: new Date(),
+          },
+        ]);
+      }
     }
   };
 
   const handleSend = async () => {
     if (!inputValue.trim() || isLoading) return;
 
-    const userMessage = { id: Date.now(), role: 'user', content: inputValue.trim(), timestamp: new Date() };
-    setMessages(prev => [...prev, userMessage]);
+    const userMessage: Message = {
+      id: Date.now(),
+      role: 'user',
+      content: inputValue.trim(),
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
 
-    setTimeout(() => {
-      const responses = uploadedFile
-        ? [
-            "Based on your PDF, the main topic seems to be [mock topic].",
-            "I’ve simulated a quiz question: What’s the key point on page 1?",
-            "Analyzing your PDF, it mentions [mock detail].",
-            "Let me explain: [mock explanation] from your document."
-          ]
-        : ["Please upload a PDF to ask about documents.", "I can’t generate a quiz without a PDF.", "Upload a document for analysis.", "Let’s chat generally for now!"];
-      const aiMessage = {
+    try {
+      const response = await askQuestion(userMessage.content);
+      const aiMessage: Message = {
         id: Date.now() + 1,
         role: 'assistant',
-        content: responses[Math.floor(Math.random() * responses.length)],
+        content: response.answer || "⚠️ No answer received from backend.",
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, aiMessage]);
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (err) {
+      console.error("Failed to get answer:", err);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now() + 1,
+          role: 'assistant',
+          content: "❌ Failed to fetch answer from backend.",
+          timestamp: new Date(),
+        },
+      ]);
+    } finally {
       setIsLoading(false);
-    }, 1200);
+    }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
   };
 
-  const quickActions = [
-    "Ask questions about PDFs",
-    "Generate study quizzes",
-    "Document analysis"
-  ];
+  const quickActions = ["Ask questions about PDFs", "Generate study quizzes", "Document analysis"];
 
   if (!isStarted) return <LandingPage handleStart={handleStart} quickActions={quickActions} />;
 
   return (
     <div className="flex flex-col h-screen bg-white">
-      <Header uploadedFile={uploadedFile} handleFileUpload={handleFileUpload} setIsStarted={setIsStarted} />
-      <ChatDisplay messages={messages} isLoading={isLoading} messagesEndRef={messagesEndRef} />
+      <Header
+        uploadedFile={uploadedFile}
+        handleFileUpload={handleFileUpload}
+        setIsStarted={setIsStarted}
+      />
+      <ChatDisplay messages={messages} isLoading={isLoading} messagesEndRef={messagesEndRef as React.RefObject<HTMLDivElement>} />
       <ChatInput
         inputValue={inputValue}
         isRecording={false}
