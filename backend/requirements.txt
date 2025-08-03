@@ -2,3 +2,4 @@ faiss-cpu
 sentence-transformers
 PyPDF2
 google-generativeai
+uvicorn
