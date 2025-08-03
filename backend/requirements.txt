@@ -1,5 +1,10 @@
-faiss-cpu
-sentence-transformers
-PyPDF2
-google-generativeai
+fastapi
 uvicorn
+python-multipart
+PyPDF2
+gtts
+requests
+google-generativeai
+python-dotenv
+sentence-transformers
+faiss-cpu
