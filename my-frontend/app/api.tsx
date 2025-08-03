@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://localhost:8000"; // change to your deployed URL later
+const BACKEND_URL = "https://insightbot-muln.onrender.com"; // change to your deployed URL later
 
 export const uploadPDF = async (file: File) => {
   const formData = new FormData();
