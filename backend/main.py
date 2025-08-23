@@ -36,7 +36,9 @@ async def upload_pdf(file: UploadFile = File(...)):
 async def ask_qna(question: str):
     answer = ask_question(question, GEMINI_API_KEY)
     return {"answer": answer}
-
+@app.get("/test")
+async def test_endpoint():
+    return {"message": "This is a test endpoint"}
 
 @app.post("/stt/")
 async def speech_to_text_endpoint(file: UploadFile = File(...)):
@@ -84,4 +86,9 @@ async def websocket_endpoint(websocket: WebSocket):
 
     except WebSocketDisconnect:
         print("WebSocket client disconnected")
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
 
