@@ -7,8 +7,19 @@ import base64
 
 # Load .env
 load_dotenv()
+
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
+# after load_dotenv() and variable fetch
+required_envs = {
+    "GEMINI_API_KEY": GEMINI_API_KEY,
+    "DEEPGRAM_API_KEY": DEEPGRAM_API_KEY,
+}
+
+missing = [k for k, v in required_envs.items() if not v]
+if missing:
+    raise EnvironmentError(f"Missing required env vars: {', '.join(missing)}. "
+                           "Please set them in your .env or environment.")
 
 # Utils
 from utils.pdf_handler import process_pdf
