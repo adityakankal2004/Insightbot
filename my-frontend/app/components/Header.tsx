@@ -19,27 +19,27 @@ export default function Header({ uploadedFile, handleFileUpload, setIsStarted }:
   };
 
   return (
-    <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <h1 className="text-xl font-bold">InsightBot</h1>
+    <header className="colorful-gradient p-6 flex justify-between items-center shadow-lg">
+      <h1 className="text-2xl font-extrabold tracking-wide drop-shadow-lg">InsightBot</h1>
       <div className="flex items-center space-x-4">
         <input
           type="file"
           accept="application/pdf"
           onChange={handleFileUpload}
-          ref={fileInputRef} // Attach the ref
+          ref={fileInputRef}
           className="hidden"
           id="fileInput"
         />
         <label
           htmlFor="fileInput"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+          className="vibrant-btn cursor-pointer"
         >
           Upload PDF
         </label>
         {uploadedFile && (
           <button
             onClick={handleReset}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            className="vibrant-btn bg-gradient-to-r from-pink-500 to-yellow-400"
           >
             Reset
           </button>

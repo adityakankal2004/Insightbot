@@ -1,1 +1,31 @@
 @import 'tailwindcss';
+body {
+	background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+	font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.colorful-gradient {
+	background: linear-gradient(90deg, #ff6b6b 0%, #f7b42c 50%, #43e97b 100%);
+	color: white;
+}
+
+.modern-card {
+	background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+	box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+	border-radius: 1rem;
+	padding: 1.5rem;
+}
+
+.vibrant-btn {
+	background: linear-gradient(90deg, #ff6b6b 0%, #f7b42c 100%);
+	color: white;
+	border: none;
+	border-radius: 0.75rem;
+	padding: 0.75rem 1.5rem;
+	font-weight: 600;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+	transition: background 0.2s;
+}
+.vibrant-btn:hover {
+	background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+}

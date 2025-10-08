@@ -1,4 +1,4 @@
-// File: C:\Users\91913\OneDrive\Desktop\insightbot\my-frontend\app\layout.tsx
+// File: C:\Users\adity\Desktop\Insightbot\venv\Insightbot\my-frontend\app\layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

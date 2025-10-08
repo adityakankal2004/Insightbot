@@ -30,41 +30,25 @@ export default function ChatInput({
   }, [inputValue]);
 
   return (
-    <div className="p-4 bg-gray-100 border-t">
+    <div className="p-6 modern-card border-t">
       <textarea
         ref={textareaRef}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyPress={handleKeyPress}
         placeholder={isRecording ? 'Recording... Speak now 🎙️' : 'Type your message...'}
-        className="w-full p-2 border rounded resize-none bg-white disabled:bg-gray-200"
+        className="w-full p-4 border-none rounded-xl resize-none bg-white disabled:bg-gray-200 shadow-lg"
         disabled={isRecording}
       />
-      <div className="flex justify-end mt-2 space-x-2">
+      <div className="flex justify-end mt-4 space-x-2">
         <button
           onClick={handleSend}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="vibrant-btn"
           disabled={isRecording}
         >
           Send
         </button>
-        <button
-          onClick={() => setIsRecording(!isRecording)}
-          className={`px-4 py-2 rounded ${isRecording ? 'bg-red-500' : 'bg-gray-500'} text-white`}
-        >
-          {isRecording ? 'Stop' : 'Record'}
-        </button>
-      </div>
-      <div className="mt-2">
-       <VoiceRecorder
-  isRecording={isRecording}
-  setInputValue={setInputValue}
-  setIsRecording={setIsRecording}
-  mode="voice2text" // or "voice2voice" if you want that here
-/>
-
       </div>
     </div>
   );
 }
-

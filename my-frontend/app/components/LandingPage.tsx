@@ -5,25 +5,23 @@ type LandingPageProps = {
 
 export default function LandingPage({ handleStart, quickActions }: LandingPageProps) {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      <header className="w-full border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex flex-col">
+      <header className="w-full colorful-gradient shadow-md">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-              <div className="w-4 h-4 bg-white rounded-sm"></div>
+            <div className="w-10 h-10 modern-card flex items-center justify-center">
+              <span className="text-lg font-bold text-purple-700">IB</span>
             </div>
-            <span className="text-xl sm:text-2xl font-semibold text-gray-900">Insightbot - A RAG Based AI Assistant</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-white drop-shadow-lg">Insightbot - A RAG Based AI Assistant</span>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
-            <button className="bg-black text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition-colors">
-              Log in
-            </button>
+            <button className="vibrant-btn text-sm">Log in</button>
           </nav>
         </div>
       </header>
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal text-gray-900 mb-6 leading-tight">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-purple-700 mb-8 leading-tight drop-shadow-lg">
             What can I help with?
           </h1>
           <div className="max-w-2xl mx-auto mb-8 sm:mb-12">
@@ -31,25 +29,24 @@ export default function LandingPage({ handleStart, quickActions }: LandingPagePr
               <input
                 type="text"
                 placeholder="Ask about your documents, generate quizzes..."
-                className="w-full px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent pr-12 sm:pr-16"
+                className="w-full px-6 py-4 text-lg border-none modern-card focus:outline-none focus:ring-4 focus:ring-purple-400 pr-16 shadow-lg"
                 onKeyPress={(e) => e.key === 'Enter' && handleStart()}
               />
               <button
                 onClick={handleStart}
-                className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 vibrant-btn shadow-lg"
               >
-                <svg className="w-5 sm:w-6 h-5 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 max-w-2xl sm:max-w-3xl mx-auto mb-4 sm:mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-2xl sm:max-w-3xl mx-auto mb-8">
             {quickActions.map((action, index) => (
               <button
                 key={index}
-                onClick={handleStart}
-                className="p-2 sm:p-3 border border-gray-200 rounded-lg text-xs sm:text-sm text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-all focus:outline-none focus:ring-2 focus:ring-gray-900"
+                className="modern-card vibrant-btn text-lg"
               >
                 {action}
               </button>
